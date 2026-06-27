@@ -56,6 +56,9 @@ public abstract class AbstractDrawer {
 	public void removeMML() {
 		//this.removeMouseMotionListener(mouseMotionListener);
 	}
+	public void removeML() {
+		//this.removeMouseMotionListener(mouseMotionListener);
+	}
 	
 
 

@@ -37,10 +37,13 @@ public class LineDrawer extends AbstractDrawer{
 			}else {
 				endingPoint= e.getPoint();
 				removeMML();
-				getHostpanel().setErase(true);//rivedere la cancellazione alla fine che non funonzia
+				getHostpanel().setErase(true);
 				getDpp().add(returnMyself());
+
+				//getHostpanel().removeDrawer();
+				//getHostpanel().repaint();
 			}
-			getHostpanel().repaint();
+			//getHostpanel().repaint();
 		}
 	};
 	this.mouseMotionListener = new MouseAdapter() {
@@ -67,6 +70,10 @@ public class LineDrawer extends AbstractDrawer{
 	@Override
 	public void removeMML() {
 		getHostpanel().removeMouseMotionListener(mouseMotionListener);
+	}
+	@Override
+	public void removeML() {
+		getHostpanel().removeMouseListener(mouseListener);
 	}
 	@Override
 	public void designMyself(Graphics2D g2d) {

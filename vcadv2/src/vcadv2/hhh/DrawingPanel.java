@@ -30,6 +30,10 @@ public class DrawingPanel extends JPanel{
 	public void setDrawer(AbstractDrawer drawer) {
 		this.drawer = drawer;
 	}
+	
+	public void removeDrawer() {
+		this.drawer = null;
+	}
 
 
 
