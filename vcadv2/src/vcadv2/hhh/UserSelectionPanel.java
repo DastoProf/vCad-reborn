@@ -20,12 +20,12 @@ public class UserSelectionPanel extends JPanel{
 		this.dpp = dpp;
 		this.dp.setDrawer(new LineDrawer(dp, dpp));
 		line.addActionListener(e->{
-			this.dp.getDrawer().removeML();
 			this.dp.setDrawer(new LineDrawer(dp, dpp));
 		});
 		circle.addActionListener(e->{
-			this.dp.getDrawer().removeML();
 			this.dp.setDrawer(new CircleDrawer(dp, dpp));
 		});
 	}
 }
+
+ 

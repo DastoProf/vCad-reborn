@@ -13,10 +13,18 @@ import javax.swing.JPanel;
 
 public class DrawingPanel extends JPanel{
 	private AbstractDrawer drawer;
-	private boolean erase;
+	private boolean drawing;
+	private MouseAdapter mouseListener;
+	private MouseAdapter mouseMotionListener;
 	public DrawingPanel() {
 		this.setOpaque(false);
-		erase = false;
+		drawing = false;
+		this.configureLiteners();
+		this.addMouseListener(mouseListener);
+		this.addMouseMotionListener(mouseMotionListener);
+	}
+	public void subscribe(AbstractDrawer ad) {
+		this.drawer = ad;
 	}
 	
 
@@ -37,14 +45,41 @@ public class DrawingPanel extends JPanel{
 
 
 
-	public boolean isErase() {
-		return erase;
+	public boolean isDrawing() {
+		return drawing;
 	}
 
 
 
-	public void setErase(boolean erase) {
-		this.erase = erase;
+	public void setDrawing(boolean drawing) {
+		this.drawing = drawing;
+	}
+	
+	public void configureLiteners(){
+		this.mouseListener =new MouseAdapter() {
+		@Override
+		public void mousePressed(MouseEvent e) {
+			drawer.update(e);
+			repaint();
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			drawer.update(e);
+			repaint();
+		}
+	};
+	this.mouseMotionListener = new MouseAdapter() {
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			drawer.update(e);
+			repaint();
+		}
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			drawer.update(e);
+			repaint();
+		}
+	};
 	}
 
 
@@ -53,10 +88,10 @@ public class DrawingPanel extends JPanel{
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		if(!isErase()) {			
+		if(isDrawing()) {			
 			drawer.designMyself(g2d);
 		}else {
-			this.erase=false;
+			//this.drawing=false;
 		}
 		
 	}

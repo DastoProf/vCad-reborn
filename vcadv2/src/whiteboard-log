@@ -1,0 +1,14 @@
+26-06-30 -- 12:00
+/*
+ * rendere il drawing panel un observable a cui si sottoscrive il AbstractDrawer selezionato
+ * (e si desottoscrivono gli altri): i mouselisteners potrebbero stare solo genericamente
+ * nel DrawingPanel e i ADrawer vengono aggiornati in risposta.
+ * ad ogni update del ADrawer parte il suo metodo designMyself() e o returnMyself()*/
+/*
+ * essendo che sul DrawingPanel agisce un Drawer alla volta, per il momento possiamo
+ * avere un solo riferimento piu tosto che una collection, e ogni volta che si sottoscrive un drawer
+ * viene cancellato l'altro.*/
+ 26-06-30 -- 15:00
+ noto che nel LineDrawer e nel Circle drawer il metodo update è lo stesso, ma potrebbe variare
+ se ad esempio introduco una forma per 3 punti (3 click). Quindi propongo di estrarre l'algoritmo
+ e farlo plug e play con un pattern tipo strategy o factorymethod (meglio strategy mi sa).

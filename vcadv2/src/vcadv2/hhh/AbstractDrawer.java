@@ -14,51 +14,10 @@ public abstract class AbstractDrawer {
 	public AbstractDrawer(DrawingPanel hostpanel, DrawedPanel dpp) {
 		this.hostpanel = hostpanel;
 		this.dpp = dpp;
-		
+		this.hostpanel.subscribe(this);
 	}
 	
-	public void configureLiteners(){
-		/*this.mouseListener =new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				drawing = !drawing;
-				if(drawing) {
-					startingPoint = e.getPoint();	
-					endingPoint = null;
-					addMML();
-				}else {
-					endingPoint= e.getPoint();
-					removeMML();
-				}
-				repaint();
-			}
-		};
-		this.mouseMotionListener = new MouseAdapter() {
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				if(drawing && startingPoint != null) {
-					endingPoint = e.getPoint();
-					repaint();
-				}
-			}
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				if(drawing && startingPoint != null) {
-					endingPoint = e.getPoint();
-					repaint();
-				}
-			}
-		};*/
-	}
-	public void addMML() {
-		//this.addMouseMotionListener(mouseMotionListener);
-	}
-	public void removeMML() {
-		//this.removeMouseMotionListener(mouseMotionListener);
-	}
-	public void removeML() {
-		//this.removeMouseMotionListener(mouseMotionListener);
-	}
+	
 	
 
 
@@ -81,4 +40,5 @@ public abstract class AbstractDrawer {
 
 	public abstract void designMyself(Graphics2D g2d);
 	public abstract Shape returnMyself();
+	public abstract void update(MouseEvent e);
 }

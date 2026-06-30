@@ -14,63 +14,12 @@ import javax.swing.JPanel;
 public class CircleDrawer extends AbstractDrawer{
 	private Point startingPoint = null;
 	private Point endingPoint = null;
-	private MouseAdapter mouseListener;
-	private MouseAdapter mouseMotionListener;
 	private boolean drawing;
 	public CircleDrawer(DrawingPanel hostpanel, DrawedPanel dpp) {
 		super(hostpanel, dpp);
 		this.drawing = false;
-		this.configureLiteners();
-		getHostpanel().addMouseListener(mouseListener);
 	}
-	@Override
-	public void configureLiteners(){
-		this.mouseListener =new MouseAdapter() {
-		@Override
-		public void mousePressed(MouseEvent e) {
-			drawing = !drawing;
-			if(drawing) {
-				startingPoint = e.getPoint();	
-				endingPoint = null;
-				addMML();
-			}else {
-				endingPoint= e.getPoint();
-				removeMML();
-				getHostpanel().setErase(true);
-				getDpp().add(returnMyself());
-			}
-			//getHostpanel().repaint();
-		}
-	};
-	this.mouseMotionListener = new MouseAdapter() {
-		@Override
-		public void mouseMoved(MouseEvent e) {
-			if(drawing && startingPoint != null) {
-				endingPoint = e.getPoint();
-				getHostpanel().repaint();
-			}
-		}
-		@Override
-		public void mouseDragged(MouseEvent e) {
-			if(drawing && startingPoint != null) {
-				endingPoint = e.getPoint();
-				getHostpanel().repaint();
-			}
-		}
-	};
-	}
-	@Override
-	public void addMML() {
-		getHostpanel().addMouseMotionListener(mouseMotionListener);
-	}
-	@Override
-	public void removeMML() {
-		getHostpanel().removeMouseMotionListener(mouseMotionListener);
-	}
-	@Override
-	public void removeML() {
-		getHostpanel().removeMouseListener(mouseListener);
-	}
+
 	@Override
 	public void designMyself(Graphics2D g2d) {
 		if(startingPoint != null && this.endingPoint != null) {
@@ -86,5 +35,23 @@ public class CircleDrawer extends AbstractDrawer{
 		int dist = (int)Point.distance(startingPoint.x, startingPoint.y, endingPoint.x, endingPoint.y);
 		Ellipse2D el = new Ellipse2D.Double(startingPoint.x, startingPoint.y, dist, dist);
 		return el;
+	}
+	@Override
+	public void update(MouseEvent e) {
+		if(e.getID()==MouseEvent.MOUSE_PRESSED) {
+			this.drawing = true;
+			this.startingPoint = e.getPoint();
+			this.endingPoint = e.getPoint();
+			this.getHostpanel().setDrawing(drawing);
+		}else if(e.getID()==MouseEvent.MOUSE_RELEASED ) {
+			this.drawing = false;
+			this.endingPoint = e.getPoint();
+			this.getDpp().add(this.returnMyself());
+			this.getHostpanel().setDrawing(drawing);
+		}
+		if(e.getID()==MouseEvent.MOUSE_DRAGGED) {
+			this.endingPoint = e.getPoint();
+		}
+		
 	}
 }
